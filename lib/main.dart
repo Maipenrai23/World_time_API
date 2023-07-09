@@ -5,12 +5,12 @@ import 'package:wold_time_app/pages/loading.dart';
 import 'package:wold_time_app/pages/contact.dart';
 
 void main() => runApp(MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/loading',
       routes: {
-        '/': (context) => LoadingScreen(),
+        '/loading': (context) => LoadingScreen(),
         '/home': (context) => Home(),
-        '/contact': (context) => ContactPage(),
         '/location': (context) => choose_location(),
+        '/contact': (context) => ContactPage(),
       },
       title: 'World Time API',
       theme: ThemeData(primaryColor: Colors.blue),
