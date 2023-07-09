@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wold_time_app/pages/menu/appDrawer.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -11,15 +14,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
+    // Update data map with values from arguments, if available
     if (args != null && args is Map) {
-      data = args;
-      print(data);
+      data['time'] = args['time'];
+      data['location'] = args['location'];
+      data['isDaytime'] = args['isDaytime'];
+      data['flag'] = args['flag'];
     }
 
     print(data);
 
     // set background
-    String bgImage = data['IsDayTime'] ?? false ? 'day.png' : 'night.png';
+    String bgImage = data['isDaytime'] == true ? 'day.png' : 'night.png';
 
     Color bgColor = data['isDaytime'] == true
         ? Colors.blue
@@ -27,6 +33,11 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       backgroundColor: bgColor,
+      appBar: AppBar(
+        title: Text('World Time App'),
+        centerTitle: true,
+        elevation: 5.0,
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -40,17 +51,17 @@ class _HomeState extends State<Home> {
             children: [
               TextButton.icon(
                 onPressed: () async {
-                  // Navigator.pushNamed(context, '/location')
                   dynamic result =
                       await Navigator.pushNamed(context, '/location');
-                  setState(() {
-                    data = {
-                      'time': result['time'],
-                      'location': result['location'],
-                      'isDaytime': result['isDaytime'],
-                      'flag': result['flag'],
-                    };
-                  });
+
+                  if (result != null && result is Map) {
+                    setState(() {
+                      data['location'] = result['location'];
+                      data['flag'] = result['flag'];
+                      data['time'] = result['time'];
+                      data['isDaytime'] = result['isDaytime'];
+                    });
+                  }
                 },
                 icon: Icon(Icons.edit_location, color: Colors.grey[300]),
                 label: Text(
@@ -63,8 +74,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    // 'Text data'
-                    data['location'] ?? 'Unknow',
+                    data['location'] ?? '',
                     style: TextStyle(
                         fontSize: 28.0,
                         letterSpacing: 2.0,
@@ -74,14 +84,14 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 20.0),
               Text(
-                // 'Text data'
-                data['time'] ?? 'Unknow',
+                data['time'] ?? '',
                 style: TextStyle(fontSize: 66.9, color: Colors.white),
               )
             ],
           ),
         ),
       ),
+      drawer: AppDrawer(),
     );
   }
 }
