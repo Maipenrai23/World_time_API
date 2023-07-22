@@ -13,7 +13,8 @@ void main() => runApp(MaterialApp(
         '/contact': (context) => ContactPage(),
       },
       title: 'World Time API',
-      theme: ThemeData(primaryColor: Colors.blue),
+      theme:
+          ThemeData(fontFamily: 'NotoSansLaoLooped', primaryColor: Colors.blue),
       home: Scaffold(),
     ));
 

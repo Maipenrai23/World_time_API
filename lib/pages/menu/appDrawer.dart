@@ -68,7 +68,10 @@ class _AppDrawerState extends State<AppDrawer> {
           Divider(),
           _createDrawerItem(Icons.bug_report, 'Report as issue', () {}),
           ListTile(
-            title: Text('0.0.1'),
+            title: Text(
+              '0.0.1',
+              style: TextStyle(color: Colors.blue),
+            ),
             onTap: () {},
           ),
 

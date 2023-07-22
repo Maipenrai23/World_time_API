@@ -12,7 +12,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     WorldTime instance = WorldTime(
         url: 'Asia/Vientiane', location: 'Vientiane', flag: 'lao.png');
     await instance.getTime();
-    print('time');
+    // print('time');
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'location': instance.location,
       'time': instance.time,
